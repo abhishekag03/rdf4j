@@ -82,7 +82,7 @@ public class SPARQLRepositorySparqlUpdateTest extends TestCase {
         RepositoryConnection connection = m_repository.getConnection();
 
         try {
-            Update update = connection.prepareUpdate(QueryLanguage.SPARQL, "insert data { ?s ?p ?o }");
+            Update update = connection.prepareUpdate(QueryLanguage.SPARQL, "delete data { ?s ?p ?o }");
             // should have failed already - NOT in the call below
             update.execute();
         }

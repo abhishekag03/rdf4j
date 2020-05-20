@@ -28,6 +28,7 @@ import org.eclipse.rdf4j.query.MalformedQueryException;
 import org.eclipse.rdf4j.query.Query;
 import org.eclipse.rdf4j.query.QueryLanguage;
 import org.eclipse.rdf4j.query.Update;
+import org.eclipse.rdf4j.query.algebra.DeleteData;
 import org.eclipse.rdf4j.query.algebra.InsertData;
 import org.eclipse.rdf4j.query.algebra.TupleExpr;
 import org.eclipse.rdf4j.query.algebra.UpdateExpr;
@@ -268,13 +269,15 @@ public class SailRepositoryConnection extends AbstractRepositoryConnection imple
 	public Update prepareUpdate(QueryLanguage ql, String update, String baseURI)
 			throws RepositoryException, MalformedQueryException {
 		ParsedUpdate parsedUpdate = QueryParserUtil.parseUpdate(ql, update, baseURI);
+
 		List<UpdateExpr> updateExprs = parsedUpdate.getUpdateExprs();
 		SPARQLUpdateDataBlockParser parser = new SPARQLUpdateDataBlockParser(this.getValueFactory());
 		for (UpdateExpr expr:updateExprs) {
 			System.out.println(expr);
-			if (expr instanceof InsertData) {
-				System.out.println("the operation is insert");
-				String datablock = ((InsertData) expr).getDataBlock();
+			System.out.println(expr.getClass());
+			if (expr instanceof DeleteData) {
+//				System.out.println("the operation is insert");
+				String datablock = ((DeleteData) expr).getDataBlock();
 				System.out.println("Datablock when parsing the query");
 				System.out.println(datablock);
 				try {
