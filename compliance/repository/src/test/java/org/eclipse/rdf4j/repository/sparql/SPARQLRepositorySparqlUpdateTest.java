@@ -5,6 +5,14 @@
  *******************************************************************************/
 package org.eclipse.rdf4j.repository.sparql;
 
+import junit.framework.TestCase;
+import org.eclipse.rdf4j.query.QueryLanguage;
+import org.eclipse.rdf4j.query.Update;
+import org.eclipse.rdf4j.repository.Repository;
+import org.eclipse.rdf4j.repository.RepositoryConnection;
+import org.eclipse.rdf4j.repository.sail.SailRepository;
+import org.eclipse.rdf4j.sail.memory.MemoryStore;
+
 /**
  * @author Jeen Broekstra
  */
@@ -52,3 +60,34 @@ package org.eclipse.rdf4j.repository.sparql;
 //		System.err.println("temporarily disabled testAutoCommitHandling() for HTTPRepository");
 //	}
 //}
+
+public class SPARQLRepositorySparqlUpdateTest extends TestCase {
+
+    private Repository m_repository;
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        m_repository = new SailRepository(new MemoryStore());
+        m_repository.initialize();
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        m_repository.shutDown();
+    }
+
+    public void testInvalidUpdate() throws Exception {
+        RepositoryConnection connection = m_repository.getConnection();
+
+        try {
+            Update update = connection.prepareUpdate(QueryLanguage.SPARQL, "insert data { ?s ?p ?o }");
+            // should have failed already - NOT in the call below
+            update.execute();
+        }
+        finally {
+            connection.close();
+        }
+    }
+}

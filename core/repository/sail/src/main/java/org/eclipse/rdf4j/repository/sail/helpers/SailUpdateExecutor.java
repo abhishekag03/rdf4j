@@ -112,6 +112,7 @@ public class SailUpdateExecutor {
 		UpdateContext uc = new UpdateContext(updateExpr, dataset, bindings, includeInferred);
 		logger.trace("Incoming update expression:\n{}", uc);
 
+
 		con.startUpdate(uc);
 		try {
 			if (updateExpr instanceof Load) {
@@ -387,6 +388,8 @@ public class SailUpdateExecutor {
 	protected void executeInsertData(InsertData insertDataExpr, UpdateContext uc, int maxExecutionTime)
 			throws SailException {
 
+		System.out.println("Datablock on executing query");
+		System.out.println(insertDataExpr.getDataBlock());
 		SPARQLUpdateDataBlockParser parser = new SPARQLUpdateDataBlockParser(vf);
 		RDFHandler handler = new RDFSailInserter(con, vf, uc);
 		if (maxExecutionTime > 0) {

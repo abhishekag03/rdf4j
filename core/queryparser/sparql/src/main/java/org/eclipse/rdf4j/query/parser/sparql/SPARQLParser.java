@@ -20,6 +20,7 @@ import org.eclipse.rdf4j.query.Dataset;
 import org.eclipse.rdf4j.query.IncompatibleOperationException;
 import org.eclipse.rdf4j.query.MalformedQueryException;
 import org.eclipse.rdf4j.query.QueryLanguage;
+import org.eclipse.rdf4j.query.algebra.InsertData;
 import org.eclipse.rdf4j.query.algebra.TupleExpr;
 import org.eclipse.rdf4j.query.algebra.UpdateExpr;
 import org.eclipse.rdf4j.query.parser.ParsedBooleanQuery;
@@ -119,6 +120,7 @@ public class SPARQLParser implements QueryParser {
 
 					// add individual update expression to ParsedUpdate sequence
 					// container
+
 					update.addUpdateExpr(updateExpr);
 
 					// associate updateExpr with the correct dataset (if any)
