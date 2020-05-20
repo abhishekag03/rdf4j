@@ -275,9 +275,9 @@ public class SailRepositoryConnection extends AbstractRepositoryConnection imple
 		for (UpdateExpr expr:updateExprs) {
 			System.out.println(expr);
 			System.out.println(expr.getClass());
-			if (expr instanceof DeleteData) {
+			if (expr instanceof InsertData) {
 //				System.out.println("the operation is insert");
-				String datablock = ((DeleteData) expr).getDataBlock();
+				String datablock = ((InsertData) expr).getDataBlock();
 				System.out.println("Datablock when parsing the query");
 				System.out.println(datablock);
 				try {
